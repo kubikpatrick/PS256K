@@ -15,11 +15,10 @@ public sealed class Media
         
     }
 
-    public Media(string name, string hash, MediaType type, string albumId)
+    public Media(string name, string hash, string albumId)
     {
         Name = name;
         Hash = hash;
-        Type = type;
         AlbumId = albumId;
     }
 
@@ -32,9 +31,6 @@ public sealed class Media
 
     [Required]
     public string Hash { get; internal set; }
-
-    [Required]
-    public MediaType Type { get; internal set; }
 
     [Required]
     public string AlbumId { get; internal set; }
