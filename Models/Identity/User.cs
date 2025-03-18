@@ -30,6 +30,9 @@ public sealed class User : IdentityUser
     [Required]
     public string Avatar { get; internal set; }
 
+    [Required]
+    public DateTime CreatedAt { get; internal set; }
+
     [NotMapped]
     public List<Album> Albums { get; internal set; }
 }
