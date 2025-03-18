@@ -23,7 +23,10 @@ public sealed class Album
     public string Name { get; internal set; }
 
     [Required]
-    public string CoverHash { get; internal set; }
+    public bool IsPublic { get; internal set; } = false;
+
+    [Required]
+    public DateTime CreatedAt { get; internal set; }
 
     [Required]
     public string UserId { get; internal set; }
@@ -33,4 +36,7 @@ public sealed class Album
 
     [NotMapped]
     public List<Media> Medias { get; internal set; }
+
+    [Required]
+    public string Cover => Medias.First().Hash ?? "empty-cover.png";
 }
