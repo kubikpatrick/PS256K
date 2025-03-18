@@ -1,0 +1,51 @@
+@using Microsoft.AspNetCore.Identity
+
+@using PS256K.Models.Gallery
+@using PS256K.Models.Identity
+
+@model Album
+
+@inject SignInManager<User> SignInManager;
+@inject UserManager<User> UserManager;
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h3 class="mb-4">@Model.Name</h3>
+
+@if (!Model.Medias.Any())
+{
+    <div class="text-center">This album is empty.</div>
+}
+else
+{
+    <div class="row g-1">
+        @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
+        {
+            <div class="col-12 mb-3">
+                <form asp-action="Create" asp-controller="Medias" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-1 rounded-3 p-5">
+                    <input type="file" id="file-upload" name="file" class="d-none" accept="image/*" required />
+                    <label for="file-upload" class="fs-1 text-primary">+</label>
+
+                    <button type="submit" class="btn btn-primary d-none" id="submit-button">Send</button>
+                </form>
+
+                <script>
+                    document.querySelector('#file-upload').addEventListener('change', function() {
+                        document.querySelector('#submit-btn').click();
+                    });
+                </script>
+            </div>
+        }
+
+        @foreach (var media in Model.Medias)
+        {
+            <div class="col-4 col-lg-3 col-xl-2">
+                <div class="ratio ratio-1x1 rounded-0">
+                    <img src="~/uploads/@Model.Id/@media.Hash" alt="@media.Name" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                </div>
+            </div>
+        }
+    </div>
+}
