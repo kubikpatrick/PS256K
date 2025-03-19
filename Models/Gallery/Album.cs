@@ -38,5 +38,5 @@ public sealed class Album
     public List<Media> Medias { get; internal set; }
 
     [Required]
-    public string Cover => Medias.First().Hash ?? "empty-cover.png";
+    public string Cover => Medias.First().Path ?? "empty-cover.png";
 }
