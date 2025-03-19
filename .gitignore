@@ -3,3 +3,6 @@
 /.vscode
 /.vs
 *.user
+*.db
+*.sql
+/wwwroot/uploads/*
