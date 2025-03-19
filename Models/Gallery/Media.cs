@@ -3,8 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using Microsoft.EntityFrameworkCore;
 
-using PS256K.Models.Identity;
-
 namespace PS256K.Models.Gallery;
 
 [PrimaryKey(nameof(Id))]
@@ -15,10 +13,10 @@ public sealed class Media
         
     }
 
-    public Media(string name, string hash, string albumId)
+    public Media(string name, string path, string albumId)
     {
         Name = name;
-        Hash = hash;
+        Path = path;
         AlbumId = albumId;
     }
 
@@ -30,7 +28,7 @@ public sealed class Media
     public string Name { get; internal set; }
 
     [Required]
-    public string Hash { get; internal set; }
+    public string Path { get; internal set; }
 
     [Required]
     public string AlbumId { get; internal set; }
