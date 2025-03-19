@@ -41,7 +41,7 @@
     {
         <div class="col-12 mb-3">
             <form asp-action="Create" asp-controller="Medias" asp-route-albumId="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-1 rounded-3 p-5">
-                <input type="file" id="file-upload" name="file" class="d-none" accept="image/jpeg, image/png, image/gif, image/svg, image/webp" required />
+                <input type="file" id="file-upload" name="file" class="d-none" accept="image/jpeg, image/png, image/gif, image/svg, image/webp" required multiple/>
                 <label for="file-upload" class="fs-1 text-primary">+</label>
 
                 <button type="submit" class="btn btn-primary d-none" id="submit-button"></button>
