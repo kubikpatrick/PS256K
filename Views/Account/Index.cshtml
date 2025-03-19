@@ -1,0 +1,25 @@
+@using PS256K.Models.Identity
+
+@model User
+
+@{
+    ViewData["Title"] = "Account";
+}
+
+<div class="row g-2">
+    <div class="col-6 col-md-3 rounded-4 border py-4 px-2">
+        <p>@Model.Albums.Count albums</p>
+    </div>
+
+    <div class="col-6 col-md-3 rounded-4 border">
+        <p>@Model.Albums.Sum(a => a.Medias.Count) pictures added</p>
+    </div>
+
+    <div class="col-6 col-md-3 rounded-4 border">
+        
+    </div>
+
+    <div class="col-6 col-md-3 rounded-4 border">
+        
+    </div>
+</div>
