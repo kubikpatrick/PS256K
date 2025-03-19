@@ -41,7 +41,7 @@ public sealed class MediasController : Controller
         await _context.Medias.AddAsync(new Media
         {
             Name = Path.GetFileName(file.FileName),
-            Hash = hash + Path.GetExtension(file.FileName),
+            Path = hash + Path.GetExtension(file.FileName),
             AlbumId = albumId,
         });
 
@@ -49,7 +49,7 @@ public sealed class MediasController : Controller
 
         return RedirectToAction("Show", "Albums", new
         {
-            albumId
+            id = albumId
         });
     }
 
@@ -67,7 +67,7 @@ public sealed class MediasController : Controller
             return NotFound();
         }
 
-        FileHelper.Delete(media.Hash);
+        FileHelper.Delete(media.Path);
         _context.Medias.Remove(media);
 
         await _context.SaveChangesAsync();
