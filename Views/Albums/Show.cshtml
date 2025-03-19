@@ -12,8 +12,15 @@
     ViewData["Title"] = Model.Name;
 }
 
-<h3 class="mb-4">@Model.Name</h3>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Albums">Albums</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+    </ol>
+</nav>
 
+<h3 class="mb-4">@Model.Name</h3>
 @if (!Model.Medias.Any())
 {
     <div class="text-center">This album is empty.</div>
@@ -24,16 +31,16 @@ else
         @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
         {
             <div class="col-12 mb-3">
-                <form asp-action="Create" asp-controller="Medias" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-1 rounded-3 p-5">
-                    <input type="file" id="file-upload" name="file" class="d-none" accept="image/*" required />
+                <form asp-action="Create" asp-controller="Medias" asp-route-albumId="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-1 rounded-3 p-5">
+                    <input type="file" id="file-upload" name="file" class="d-none" accept="image/jpeg, image/png, image/gif, image/svg, image/webp" required />
                     <label for="file-upload" class="fs-1 text-primary">+</label>
 
-                    <button type="submit" class="btn btn-primary d-none" id="submit-button">Send</button>
+                    <button type="submit" class="btn btn-primary d-none" id="submit-button"></button>
                 </form>
 
                 <script>
                     document.querySelector('#file-upload').addEventListener('change', function() {
-                        document.querySelector('#submit-btn').click();
+                        document.querySelector('#submit-button').click();
                     });
                 </script>
             </div>
@@ -43,7 +50,7 @@ else
         {
             <div class="col-4 col-lg-3 col-xl-2">
                 <div class="ratio ratio-1x1 rounded-0">
-                    <img src="~/uploads/@Model.Id/@media.Hash" alt="@media.Name" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                    <img src="~/uploads/@Model.Id/@media.Path" alt="@media.Name" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
                 </div>
             </div>
         }
