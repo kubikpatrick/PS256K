@@ -21,7 +21,7 @@
 </nav>
 
 <div class="d-flex justify-content-between">
-    <h3 class="mb-4">@Model.Name</h3>
+    <h3 class="mb-4">@Model.Name (@Model.CreatedAt.ToShortDateString())</h3>
 
     @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
     {
