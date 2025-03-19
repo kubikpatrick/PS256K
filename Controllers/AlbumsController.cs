@@ -92,4 +92,20 @@ public sealed class AlbumsController : Controller
             id = entry.Entity.Id
         });
     }
+
+    [HttpDelete("delete/{id:guid}")]
+    public async Task<ActionResult> Delete([FromRoute] string id)
+    {
+        var album = await _context.Albums.FindAsync(id);
+        if (album is null || album.UserId != User.FindFirstValue(ClaimTypes.NameIdentifier))
+        {
+            return NotFound();
+        }
+
+        _context.Albums.Remove(album);
+
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
 }
