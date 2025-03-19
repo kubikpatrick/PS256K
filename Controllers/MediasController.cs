@@ -22,28 +22,31 @@ public sealed class MediasController : Controller
     }
 
     [HttpPost("create/{albumId}")]
-    public async Task<ActionResult> Create([FromRoute] string albumId, IFormFile file)
+    public async Task<ActionResult> Create([FromRoute] string albumId, List<IFormFile> files)
     {   
-        if (file is null || file.Length == 0)
+        if (files is null || files.Count == 0)
         {
             return BadRequest();
         }
-
-        var hash = file.GetHashCode().ToString();
-        var directory = Directory.CreateDirectory(Path.Combine("wwwroot", "uploads", albumId));
-        var path = Path.Combine(directory.FullName, hash + Path.GetExtension(file.FileName));
-
-        using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+        
+        foreach (var file in files)
         {
-            await file.CopyToAsync(fs);
+            var hash = file.GetHashCode().ToString();
+            var directory = Directory.CreateDirectory(Path.Combine("wwwroot", "uploads", albumId));
+            var path = Path.Combine(directory.FullName, hash + Path.GetExtension(file.FileName));
+
+            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            {
+                await file.CopyToAsync(fs);
+            }
+
+            await _context.Medias.AddAsync(new Media
+            {
+                Name = Path.GetFileName(file.FileName),
+                Path = hash + Path.GetExtension(file.FileName),
+                AlbumId = albumId,
+            });
         }
-
-        await _context.Medias.AddAsync(new Media
-        {
-            Name = Path.GetFileName(file.FileName),
-            Path = hash + Path.GetExtension(file.FileName),
-            AlbumId = albumId,
-        });
 
         await _context.SaveChangesAsync();
 
