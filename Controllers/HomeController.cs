@@ -8,7 +8,7 @@ using PS256K.Models;
 
 namespace PS256K.Controllers;
 
-public class HomeController : Controller
+public sealed class HomeController : Controller
 {
     private readonly ApplicationDbContext _context;
 
@@ -17,6 +17,7 @@ public class HomeController : Controller
         _context = context;
     }
 
+    [HttpGet]
     public async Task<ActionResult> Index()
     {
         var albums = await _context.Albums
@@ -28,13 +29,15 @@ public class HomeController : Controller
         return View(albums);
     }
 
+    [HttpGet("privacy")]
     public ActionResult Privacy()
     {
         return View();
     }
 
+    [HttpGet("errors")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    public ActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
