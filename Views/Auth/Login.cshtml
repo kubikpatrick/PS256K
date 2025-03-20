@@ -9,7 +9,7 @@
 <div class="row d-flex justify-content-center align-items-center">
     <div class="col-11 col-sm-7 col-md-5 col-xl-4">
         <form method="post" asp-action="Login" asp-controller="Auth" class="row gy-4">
-            <div class="asp-validation-summary" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
 
             <div class="col-12">
                 <label asp-for="Email" class="form-label"></label>
