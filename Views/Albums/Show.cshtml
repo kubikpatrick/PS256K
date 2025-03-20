@@ -21,7 +21,10 @@
 </nav>
 
 <div class="d-flex justify-content-between">
-    <h3 class="mb-4">@Model.Name (@Model.CreatedAt.ToShortDateString())</h3>
+    <div class="mb-4">
+        <h3>@Model.Name (@Model.CreatedAt.ToShortDateString())</h3>
+        <small class="text-muted">@Model.Pictures.Count pictures</small>
+    </div>
 
     @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
     {
@@ -30,7 +33,9 @@
             <ul class="dropdown-menu" aria-labelledby="albumMenu">
                 <li><a class="dropdown-item" asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id">Edit</a></li>
                 <li><a class="dropdown-item" asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id">Share</a></li>
-                <li><a class="dropdown-item btn btn-outline-danger" href="@Url.Action("Delete", "Albums", new { id = Model.Id })" onclick="return confirm('Are you sure you want to delete this album?')">Delete</a></li>
+                <li>
+                    <button class="dropdown-item btn btn-outline-danger" type="submit" id="delete-album">Delete</button>
+                </li>
             </ul>
         </div>
     }
@@ -127,7 +132,23 @@
 
     <script>
         document.querySelector("#scroll-top").addEventListener("click", function () {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ 
+                top: 0, 
+                behavior: "smooth" 
+            });
+        });
+
+        document.querySelector("#delete-album").addEventListener("click", function () {
+            $.ajax({
+                url: "/albums/delete/@Model.Id",
+                type: "DELETE",
+                success: function(response) {
+                    window.location = "/albums";
+                },
+                error: function(xhr, options, error) {
+                    alert(error);
+                }
+            })
         });
     </script>
 </div>
