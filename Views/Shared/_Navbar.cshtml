@@ -35,7 +35,11 @@
                         <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="user-menu">
                             <li><a class="dropdown-item" asp-action="Index" asp-controller="Account">Account</a></li>
                             <li><hr /></li>
-                            <li><a class="dropdown-item" asp-action="Logout" asp-controller="Auth">Logout</a></li>
+                            <li>
+                                <form asp-action="Logout" asp-controller="Auth" method="post">
+                                    <button class="dropdown-item btn btn-outline-danger" type="submit">Logout</button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 }
