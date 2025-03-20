@@ -30,9 +30,16 @@ public sealed class Picture
     [Required]
     public string Path { get; internal set; }
 
+    public string? Longitude { get; internal set; }
+    
+    public string? Latitude { get; internal set; }
+
     [Required]
     public string AlbumId { get; internal set; }
 
     [NotMapped]
     public Album Album { get; internal set; }
+
+    [NotMapped]
+    public bool HasGeolocation => !string.IsNullOrEmpty(Longitude) && !string.IsNullOrEmpty(Latitude);
 }
