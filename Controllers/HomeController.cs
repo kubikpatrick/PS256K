@@ -36,6 +36,12 @@ public sealed class HomeController : Controller
         return View();
     }
 
+    [HttpGet("stack")]
+    public ActionResult Stack()
+    {
+        return View();
+    }
+
     [HttpGet("errors")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public ActionResult Error()
