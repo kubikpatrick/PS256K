@@ -49,7 +49,7 @@ public sealed class AuthController : Controller
             return View(model);
         }
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction(nameof(Index), "Home");
     }
 
     [HttpGet("sign-up")]
@@ -87,6 +87,17 @@ public sealed class AuthController : Controller
         await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
 
         return RedirectToAction("Index", "Home");
+    }
+
+    [HttpPost("logout")]
+    public async Task<ActionResult> Logout()
+    {
+        if (_signInManager.IsSignedIn(User))
+        {
+            await _signInManager.SignOutAsync();
+        }
+
+        return RedirectToAction(nameof(Login));
     }
 
     public override void OnActionExecuting(ActionExecutingContext context)
