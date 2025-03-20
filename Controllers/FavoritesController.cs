@@ -53,7 +53,7 @@ public sealed class FavoritesController : Controller
     {
         bool exists = await _context.Favorites
             .AnyAsync(
-            a => a.Id == id &&
+                a => a.Id == id &&
                 a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)
             );
 
