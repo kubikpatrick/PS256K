@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace PS256K.Models.REST;
@@ -12,5 +13,6 @@ public sealed class LoginModel
     [Required(ErrorMessage = "Password is required.")]
     public string Password { get; set; }
 
+    [DisplayName("Remember me")]
     public bool RememberMe { get; set; } = false;
 }
