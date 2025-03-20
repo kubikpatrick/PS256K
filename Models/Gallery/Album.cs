@@ -37,6 +37,9 @@ public sealed class Album
     [NotMapped]
     public List<Picture> Pictures { get; internal set; }
 
+    [NotMapped]
+    public List<Favorite> Favorites { get; internal set; }
+
     [Required]
     public string Cover => Pictures.First().Path ?? "empty-cover.png";
 }

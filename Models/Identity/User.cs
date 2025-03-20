@@ -37,5 +37,8 @@ public sealed class User : IdentityUser
     public List<Album> Albums { get; internal set; }
 
     [NotMapped]
+    public List<Favorite> Favorites { get; internal set; }
+
+    [NotMapped]
     public string FullName => $"{FirstName} {LastName}";
 }
