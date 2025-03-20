@@ -25,7 +25,7 @@ public sealed class AlbumsController : Controller
     public async Task<ActionResult> Index()
     {
         var albums = await _context.Albums
-            .Include(a => a.Medias.Take(5))
+            .Include(a => a.Pictures.Take(5))
             .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
             .ToListAsync();
 
@@ -37,7 +37,7 @@ public sealed class AlbumsController : Controller
     public async Task<ActionResult> Show([FromRoute] string id)
     {
         var album = await _context.Albums
-            .Include(a => a.Medias)
+            .Include(a => a.Pictures)
             .Include(a => a.User)
             .FirstOrDefaultAsync(a => a.Id == id);
 
@@ -53,7 +53,7 @@ public sealed class AlbumsController : Controller
     public async Task<ActionResult> Search([FromQuery] string name)
     {
         var albums = await _context.Albums
-            .Include(a => a.Medias)
+            .Include(a => a.Pictures)
             .Where(
                 a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier) &&
                 a.Name.Contains(name)
@@ -92,7 +92,7 @@ public sealed class AlbumsController : Controller
             id = entry.Entity.Id
         });
     }
-
+    
     [HttpDelete("delete/{id:guid}")]
     public async Task<ActionResult> Delete([FromRoute] string id)
     {

@@ -8,18 +8,22 @@
 
 <div class="row g-2">
     <div class="col-6 col-md-3 rounded-4 border py-4 px-2">
-        <p>@Model.Albums.Count albums</p>
+        <p class="text-center">@Model.Albums.Count albums</p>
     </div>
 
-    <div class="col-6 col-md-3 rounded-4 border">
-        <p>@Model.Albums.Sum(a => a.Medias.Count) pictures added</p>
+    <div class="col-6 col-md-3 rounded-4 border py-4 px-2">
+        <p class="text-center">@Model.Albums.Sum(a => a.Pictures.Count) pictures added</p>
     </div>
 
-    <div class="col-6 col-md-3 rounded-4 border">
+    <div class="col-6 col-md-3 rounded-4 border py-4 px-2">
         
     </div>
 
-    <div class="col-6 col-md-3 rounded-4 border">
+    <div class="col-6 col-md-3 rounded-4 border py-4 px-2">
         
     </div>
+
+    <form asp-action="Logout" asp-controller="Auth" method="post">
+        <button class="btn btn-danger mx-auto" type="submit">Logout</button>
+    </form>
 </div>

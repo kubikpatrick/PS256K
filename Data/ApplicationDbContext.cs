@@ -15,7 +15,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<User>
 
     public DbSet<User> Users { get; set; }
     public DbSet<Album> Albums { get; set; }
-    public DbSet<Media> Medias { get; set; }
+    public DbSet<Picture> Pictures { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -25,14 +25,14 @@ public sealed class ApplicationDbContext : IdentityDbContext<User>
             .HasForeignKey(album => album.UserId);
 
         builder.Entity<Album>()
-            .HasMany(album => album.Medias)
-            .WithOne(media => media.Album)
-            .HasForeignKey(media => media.AlbumId);
+            .HasMany(album => album.Pictures)
+            .WithOne(picture => picture.Album)
+            .HasForeignKey(picture => picture.AlbumId);
         
-        builder.Entity<Media>()
-            .HasOne(media => media.Album)
-            .WithMany(album => album.Medias)
-            .HasForeignKey(media => media.AlbumId);
+        builder.Entity<Picture>()
+            .HasOne(picture => picture.Album)
+            .WithMany(album => album.Pictures)
+            .HasForeignKey(picture => picture.AlbumId);
 
         base.OnModelCreating(builder);
     }

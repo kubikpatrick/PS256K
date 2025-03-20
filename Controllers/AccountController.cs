@@ -30,7 +30,7 @@ public sealed class AccountController : Controller
     {
         var user = await _context.Users
             .Include(u => u.Albums)
-                .ThenInclude(a => a.Medias) 
+                .ThenInclude(a => a.Pictures) 
             .FirstOrDefaultAsync(u => u.Id == _userManager.GetUserId(User));
 
         if (user is null)

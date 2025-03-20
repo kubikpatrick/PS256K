@@ -6,10 +6,14 @@
     ViewData["Title"] = "Albums";
 }
 
+<div class="d-flex justify-content-center">
+    
+</div>
+
 <div class="row">
     @foreach (var album in Model)
     {
-        if (!album.Medias.Any())
+        if (!album.Pictures.Any())
         {
             continue;
         }
@@ -17,13 +21,13 @@
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 animate__animated animate__fadeInUp">
             <div id="carousel-item-@album.Id" class="carousel slide rounded-4 overflow-hidden mb-2" data-bs-ride="carousel">
                 <div class="carousel-inner rounded-4 mb-2 overflow-hidden">
-                    @for (int i = 0; i < album.Medias.Count; i++)
+                    @for (int i = 0; i < album.Pictures.Count; i++)
                     {
-                        var media = album.Medias[i];
+                        var picture = album.Pictures[i];
 
                         <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
                             <div class="ratio ratio-1x1">
-                                <img src="~/uploads/@album.Id/@media.Path" class="d-block w-100 h-100 object-fit-cover" alt="Image @(i + 1)">
+                                <img src="~/uploads/@album.Id/@picture.Path" class="d-block w-100 h-100 object-fit-cover" alt="Image @(i + 1)">
                             </div>
                         </div>
                     }

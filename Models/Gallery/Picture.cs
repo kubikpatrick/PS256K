@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 namespace PS256K.Models.Gallery;
 
 [PrimaryKey(nameof(Id))]
-public sealed class Media
+public sealed class Picture
 {
-    public Media()
+    public Picture()
     {
         
     }
 
-    public Media(string name, string path, string albumId)
+    public Picture(string name, string path, string albumId)
     {
         Name = name;
         Path = path;

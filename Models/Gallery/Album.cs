@@ -35,8 +35,8 @@ public sealed class Album
     public User User { get; internal set; }
 
     [NotMapped]
-    public List<Media> Medias { get; internal set; }
+    public List<Picture> Pictures { get; internal set; }
 
     [Required]
-    public string Cover => Medias.First().Path ?? "empty-cover.png";
+    public string Cover => Pictures.First().Path ?? "empty-cover.png";
 }

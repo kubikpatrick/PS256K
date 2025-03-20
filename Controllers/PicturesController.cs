@@ -11,12 +11,12 @@ using PS256K.Models.Gallery;
 namespace PS256K.Controllers;
 
 [Authorize]
-[Route("medias")]
-public sealed class MediasController : Controller
+[Route("pictures")]
+public sealed class PicturesController : Controller
 {
     private readonly ApplicationDbContext _context;
 
-    public MediasController(ApplicationDbContext context)
+    public PicturesController(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -40,7 +40,7 @@ public sealed class MediasController : Controller
                 await file.CopyToAsync(fs);
             }
 
-            await _context.Medias.AddAsync(new Media
+            await _context.Pictures.AddAsync(new Picture
             {
                 Name = Path.GetFileName(file.FileName),
                 Path = hash + Path.GetExtension(file.FileName),
@@ -59,19 +59,19 @@ public sealed class MediasController : Controller
     [HttpDelete("delete/{id:guid}")]
     public async Task<ActionResult> Delete([FromRoute] string id)
     {
-        var media = await _context.Medias
+        var picture = await _context.Pictures
             .FirstOrDefaultAsync(
                 m => m.Id == id && 
                 m.Album.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)
             );
 
-        if (media is null)
+        if (picture is null)
         {
             return NotFound();
         }
 
-        FileHelper.Delete(media.Path);
-        _context.Medias.Remove(media);
+        FileHelper.Delete(picture.Path);
+        _context.Pictures.Remove(picture);
 
         await _context.SaveChangesAsync();
 

@@ -34,15 +34,19 @@
             </ul>
         </div>
     }
+    else
+    {
+        <small class="text-muted">Created by @Model.User.FullName</small>
+    }
 </div>
 
 <div class="row g-1">
     @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
     {
         <div class="col-12 mb-3">
-            <form asp-action="Create" asp-controller="Medias" asp-route-albumId="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-1 rounded-3 p-5">
+            <form asp-action="Create" asp-controller="Pictures" asp-route-albumId="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-dashed border-1 rounded-3 p-5">
                 <input type="file" id="file-upload" name="files" class="d-none" accept="image/jpeg, image/png, image/gif, image/svg, image/webp" required multiple/>
-                <label for="file-upload" class="fs-1 text-primary">+</label>
+                <label for="file-upload" class="fs-3 text-primary">+</label>
 
                 <button type="submit" class="btn btn-primary d-none" id="submit-button"></button>
             </form>
@@ -55,17 +59,32 @@
         </div>
     }
     
-    @if (!Model.Medias.Any())
+    @if (!Model.Pictures.Any())
     {
         <div class="text-center">This album is empty.</div>
     }
     else
     {
-        @foreach (var media in Model.Medias)
+        @foreach (var picture in Model.Pictures)
         {
             <div class="col-4 col-lg-3 col-xl-2">
                 <div class="ratio ratio-1x1 rounded-0">
-                    <img src="~/uploads/@Model.Id/@media.Path" alt="@media.Name" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;" />
+                    <img src="~/uploads/@Model.Id/@picture.Path" alt="@picture.Name" class="img-fluid object-fit-cover w-100 h-100" data-bs-toggle="modal" data-bs-target="#picture-modal-@picture.Id" role="button"/>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="picture-modal-@picture.Id" tabindex="-1" aria-labelledby="picture-modal-label-@picture.Id" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 90vw; max-height: 90vh;">
+                    <div class="modal-content bg-white">
+                        <div class="modal-header border-0 p-2">
+                            <h5 class="modal-title" id="picture-modal-label-@picture.Id">@picture.Name</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body d-flex justify-content-center align-items-center p-3 w-100 h-100 overflow-hidden">
+                            <img src="~/uploads/@Model.Id/@picture.Path" alt="@picture.Name" class="img-fluid object-fit-contain d-block" style="max-width: 85vw; max-height: 85vh;">
+                        </div>
+                    </div>
                 </div>
             </div>
         }

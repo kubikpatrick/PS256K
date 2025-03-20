@@ -21,6 +21,7 @@ public sealed class HomeController : Controller
     public async Task<ActionResult> Index()
     {
         var albums = await _context.Albums
+            .Include(a => a.Pictures.Take(5))
             .OrderByDescending(a => a.CreatedAt)
             .Where(a => a.IsPublic)
             .Take(20)
