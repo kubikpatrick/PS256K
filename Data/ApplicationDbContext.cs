@@ -15,6 +15,7 @@ public sealed class ApplicationDbContext : IdentityDbContext<User>
 
     public DbSet<User> Users { get; set; }
     public DbSet<Album> Albums { get; set; }
+    public DbSet<Favorite> Favorites { get; set; }
     public DbSet<Picture> Pictures { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -33,6 +34,16 @@ public sealed class ApplicationDbContext : IdentityDbContext<User>
             .HasOne(picture => picture.Album)
             .WithMany(album => album.Pictures)
             .HasForeignKey(picture => picture.AlbumId);
+
+        builder.Entity<Favorite>()
+            .HasOne(f => f.Album)
+            .WithMany(a => a.Favorites)
+            .HasForeignKey(f => f.AlbumId);
+
+        builder.Entity<Favorite>()
+            .HasOne(f => f.User)
+            .WithMany(u => u.Favorites)
+            .HasForeignKey(f => f.UserId);
 
         base.OnModelCreating(builder);
     }
