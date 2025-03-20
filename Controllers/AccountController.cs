@@ -61,13 +61,6 @@ public sealed class AccountController : Controller
             .Where(u => u.Id == _userManager.GetUserId(User))
             .ExecuteUpdateAsync(u => u.SetProperty(u => u.Avatar, hash));
 
-        if (count > 0)
-        {
-            return Ok();
-        }
-        else
-        {
-            return BadRequest();
-        }
+        return count > 0 ? Ok() : BadRequest();
     }
 }
