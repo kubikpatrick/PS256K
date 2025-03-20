@@ -24,8 +24,6 @@ public sealed class AccountController : Controller
         _userManager = userManager;
     }
 
-    private User CurrentUser { get; set; }
-
     [HttpGet]
     public async Task<ActionResult> Index()
     {
@@ -40,12 +38,5 @@ public sealed class AccountController : Controller
         }
 
         return View(user);
-    }
-
-    public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-    {
-        CurrentUser = await _userManager.GetUserAsync(User);
-
-        await base.OnActionExecutionAsync(context, next);
     }
 }
