@@ -58,7 +58,7 @@ public sealed class AccountController : Controller
 
         int count = await _context.Users
             .Where(u => u.Id == _userManager.GetUserId(User))
-            .ExecuteUpdateAsync(u => u.SetProperty(u => u.Avatar, hash));
+            .ExecuteUpdateAsync(u => u.SetProperty(u => u.Avatar, hash + Path.GetExtension(file.FileName)));
 
         return count > 0 ? Ok() : BadRequest();
     }
