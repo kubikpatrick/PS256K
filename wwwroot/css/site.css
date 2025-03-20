@@ -33,3 +33,7 @@ body {
 .border-dashed {
   border-style: dashed !important;
 }
+
+a {
+    text-decoration: none;
+}
