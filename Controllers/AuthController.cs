@@ -25,6 +25,8 @@ public sealed class AuthController : Controller
         return View();
     }
 
+    private const string CredentialsInvalidErrorMessage = "Credentials are invalid.";
+
     [HttpPost("login")]
     public async Task<ActionResult> Login(LoginModel model)
     {
@@ -36,7 +38,7 @@ public sealed class AuthController : Controller
         var user = await _userManager.FindByEmailAsync(model.Email);
         if (user is null)
         {
-            ModelState.AddModelError(string.Empty, "Credentials are invalid.");
+            ModelState.AddModelError(string.Empty, CredentialsInvalidErrorMessage);
             
             return View(model);
         }
@@ -44,7 +46,7 @@ public sealed class AuthController : Controller
         var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
         if (!result.Succeeded)
         {
-            ModelState.AddModelError(string.Empty, "Credentials are invalid.");
+            ModelState.AddModelError(string.Empty, CredentialsInvalidErrorMessage);
 
             return View(model);
         }
