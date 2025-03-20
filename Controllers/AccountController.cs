@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using PS256K.Data;
-using PS256K.Models.Gallery;
 using PS256K.Models.Identity;
 
 namespace PS256K.Controllers;
