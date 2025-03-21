@@ -36,6 +36,12 @@ public sealed class HomeController : Controller
         return View();
     }
 
+    [HttpGet("not-found")]
+    public ActionResult NotFound()
+    {
+        return View();
+    }
+
     [HttpGet("stack")]
     public ActionResult Stack()
     {
