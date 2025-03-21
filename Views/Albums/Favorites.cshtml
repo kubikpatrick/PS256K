@@ -1,0 +1,59 @@
+﻿@using PS256K.Models.Gallery
+
+@model List<Favorite>
+
+@{
+    ViewData["Title"] = "Favorites";
+}
+
+@if (Model.Count == 0)
+{
+    <h3 class="text-center">No favorites.</h3>
+}
+else
+{
+    <div class="row">
+        @foreach (var favorite in Model)
+        {
+            if (!favorite.Album.Pictures.Any())
+            {
+                continue;
+            }
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 animate__animated animate__fadeInUp">
+                <div id="carousel-item-@favorite.Id" class="carousel slide rounded-4 overflow-hidden mb-2" data-bs-ride="carousel">
+                    <div class="carousel-inner rounded-4 mb-2 overflow-hidden">
+                        @for (int i = 0; i < favorite.Album.Pictures.Count; i++)
+                        {
+                            var picture = favorite.Album.Pictures[i];
+
+                            <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
+                                <div class="ratio ratio-1x1">
+                                    <img src="~/uploads/@favorite.Album.Id/@picture.Path" class="d-block w-100 h-100 object-fit-cover" alt="Image @(i + 1)">
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-item-@favorite.Album.Id" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-item-@favorite.Album.Id" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <h6>
+                        <a asp-action="Show" asp-controller="Albums" asp-route-id="@favorite.Album.Id" class="text-decoration-none text-dark">@favorite.Album.Name</a>
+                    </h6>
+
+                    <small>@favorite.Album.CreatedAt.ToShortDateString()</small>
+                </div>
+            </div>
+        }
+    </div>
+}
