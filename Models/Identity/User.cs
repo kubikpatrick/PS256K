@@ -40,5 +40,8 @@ public sealed class User : IdentityUser
     public List<Favorite> Favorites { get; internal set; }
 
     [NotMapped]
+    public List<Connection> Connections { get; internal set; }
+
+    [NotMapped]
     public string FullName => $"{FirstName} {LastName}";
 }
