@@ -18,6 +18,9 @@ public sealed class Connection
     public string Id { get; internal set; }
 
     [Required]
+    public ConnectionState State { get; internal set; }
+
+    [Required]
     public DateTime CreatedAt { get; internal set; }
 
     [Required]
