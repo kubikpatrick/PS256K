@@ -115,6 +115,8 @@ public sealed class AlbumsController : Controller
             return NotFound();
         }
 
+        Directory.Delete(Path.Combine("wwwroot", "uploads", album.Id), true);
+
         _context.Albums.Remove(album);
 
         await _context.SaveChangesAsync();
