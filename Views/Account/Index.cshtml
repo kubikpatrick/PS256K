@@ -6,6 +6,12 @@
     ViewData["Title"] = "Account";
 }
 
+<div class="d-flex justify-content-center">
+    <img src="~/avatars/@Model.Avatar" alt="@Model.FullName's avatar" class="rounded-circle object-fit-cover" style="width: 100px; height: 100px;" />
+</div>
+<p class="text-center mb-5">@Model.FullName</p>
+
+
 <div class="row g-2">
     <div class="col-6 col-md-3 rounded-4 border py-4 px-2">
         <p class="text-center">@Model.Albums.Count albums</p>
@@ -26,4 +32,5 @@
     <form asp-action="Logout" asp-controller="Auth" method="post">
         <button class="btn btn-danger mx-auto" type="submit">Logout</button>
     </form>
+    
 </div>
