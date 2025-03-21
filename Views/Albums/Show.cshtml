@@ -22,8 +22,8 @@
 
 <div class="d-flex justify-content-between">
     <div class="mb-4">
-        <h3>@Model.Name (@Model.CreatedAt.ToShortDateString())</h3>
-        <small class="text-muted">@Model.Pictures.Count pictures</small>
+        <h3>@Model.Name</h3>
+        <small class="text-muted">Creation : @Model.CreatedAt.ToShortDateString() - @Model.Pictures.Count pictures added</small>
     </div>
 
     @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
