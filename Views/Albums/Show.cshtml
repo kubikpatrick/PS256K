@@ -23,13 +23,13 @@
 <div class="d-flex justify-content-between">
     <div class="mb-4">
         <h3>@Model.Name</h3>
-        <small class="text-muted">Creation : @Model.CreatedAt.ToShortDateString() - @Model.Pictures.Count pictures added</small>
+        <small class="text-muted">Created on : @Model.CreatedAt.ToShortDateString() - @Model.Pictures.Count pictures added</small>
     </div>
 
     @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
     {
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="albumMenu" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
+            <button class="btn btn-light dropdown-toggle" type="button" id="albumMenu" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
             <ul class="dropdown-menu" aria-labelledby="albumMenu">
                 <li><a asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id" class="dropdown-item">Edit</a></li>
                 <li><a asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id" class="dropdown-item">Share</a></li>
