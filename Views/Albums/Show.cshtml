@@ -31,8 +31,8 @@
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="albumMenu" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
             <ul class="dropdown-menu" aria-labelledby="albumMenu">
-                <li><a class="dropdown-item" asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id">Edit</a></li>
-                <li><a class="dropdown-item" asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id">Share</a></li>
+                <li><a asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id" class="dropdown-item">Edit</a></li>
+                <li><a asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id" class="dropdown-item">Share</a></li>
                 <li>
                     <button class="dropdown-item btn btn-outline-danger" type="submit" id="delete-album">Delete</button>
                 </li>
