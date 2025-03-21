@@ -74,7 +74,7 @@ public sealed class AuthController : Controller
             UserName = model.Email,
             FirstName = model.FirstName,
             LastName = model.LastName,
-            Avatar = "DEFAULT",
+            Avatar = "DEFAULT.png",
             CreatedAt = DateTime.UtcNow,
         };
 
