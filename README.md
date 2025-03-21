@@ -30,4 +30,4 @@ To finish, build the project and publish it in its release version :
 dotnet publish -c Release
 ```
 
-Once all previous steps done, move to `./PS256K/bin/Release/net9.O/` and execute `PS256K.exe`.
+Once all previous steps done, move to `./PS256K/bin/Release/net9.0/` and execute `PS256K.exe`.
