@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Uber";
+  src: url("../fonts/UberMoveMedium.otf");
+}
+
 html {
   font-size: 14px;
 }
@@ -19,6 +24,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  font-family: "Uber";
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
