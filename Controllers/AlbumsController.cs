@@ -63,6 +63,19 @@ public sealed class AlbumsController : Controller
         return View(albums);
     }
 
+    [HttpGet("favorites")]
+    public async Task<ActionResult> Favorites()
+    {
+        var favorites = await _context.Favorites
+            .Include(f => f.Album)
+                .ThenInclude(a => a.Pictures.Take(5))
+            .Include(f => f.User)
+            .Where(f => f.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+            .ToListAsync();
+
+        return View(favorites);
+    }
+
     [HttpGet("create")]
     public ActionResult Create()
     {
