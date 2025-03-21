@@ -32,8 +32,15 @@ public sealed class Program
             app.UseExceptionHandler("/Home/Error");
             app.UseHsts();
         }
-
+        
         app.UseHttpsRedirection();
+        app.UseStatusCodePages(async context => 
+        {
+            if (context.HttpContext.Response.StatusCode == StatusCodes.Status404NotFound)
+            {
+                context.HttpContext.Response.Redirect("/not-found", true);
+            }
+        });
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
