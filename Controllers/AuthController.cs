@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-
+using PS256K.Data;
 using PS256K.Models.Identity;
 using PS256K.Models.REST;
 
@@ -10,11 +10,13 @@ namespace PS256K.Controllers;
 [Route("auth")]
 public sealed class AuthController : Controller
 {
+    private readonly ApplicationDbContext _context;
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
 
-    public AuthController(UserManager<User> userManager, SignInManager<User> signInManager)
+    public AuthController(ApplicationDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
     {
+        _context = context;
         _userManager = userManager;
         _signInManager = signInManager;
     }
@@ -48,8 +50,26 @@ public sealed class AuthController : Controller
         {
             ModelState.AddModelError(string.Empty, CredentialsInvalidErrorMessage);
 
+            await _context.Connections.AddAsync(new Connection
+            {
+                CreatedAt = DateTime.UtcNow,
+                State = ConnectionState.Failed,
+                UserId = user.Id
+            });
+
+            await _context.SaveChangesAsync();
+
             return View(model);
         }
+
+        await _context.Connections.AddAsync(new Connection
+        {
+            CreatedAt = DateTime.UtcNow,
+            State = ConnectionState.Success,
+            UserId = user.Id
+        });
+
+        await _context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index), "Home");
     }
@@ -87,6 +107,14 @@ public sealed class AuthController : Controller
         }
 
         await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
+        await _context.Connections.AddAsync(new Connection
+        {
+            CreatedAt = DateTime.UtcNow,
+            State = ConnectionState.Success,
+            UserId = user.Id
+        });
+
+        await _context.SaveChangesAsync();
 
         return RedirectToAction("Index", "Home");
     }
