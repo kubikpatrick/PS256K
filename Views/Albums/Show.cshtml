@@ -23,7 +23,7 @@
 <div class="d-flex justify-content-between">
     <div class="mb-4">
         <h3>@Model.Name</h3>
-        <small class="text-muted">Created on : @Model.CreatedAt.ToShortDateString() - @Model.Pictures.Count pictures added</small>
+        <small class="text-muted">Created on : @Model.CreatedAt.ToShortDateString() - @Model.Pictures.Count @(Model.Pictures.Count <= 1 ? "picture" : "pictures") added</small>
     </div>
 
     @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
