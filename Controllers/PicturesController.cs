@@ -75,6 +75,9 @@ public sealed class PicturesController : Controller
 
         await _context.SaveChangesAsync();
 
-        return Ok();         
+        return RedirectToAction("Show", "Albums", new
+        {
+            picture.AlbumId
+        });
     }
 }
