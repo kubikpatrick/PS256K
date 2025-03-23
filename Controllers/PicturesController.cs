@@ -50,10 +50,13 @@ public sealed class PicturesController : Controller
 
         await _context.SaveChangesAsync();
 
-        return NoContent();
+        return RedirectToAction("Show", "Albums", new
+        {
+            id = albumId,
+        });
     }
 
-    [HttpDelete("delete/{id:guid}")]
+    [HttpPost("delete/{id:guid}")]
     public async Task<ActionResult> Delete([FromRoute] string id)
     {
         var picture = await _context.Pictures
