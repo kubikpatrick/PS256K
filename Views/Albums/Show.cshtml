@@ -26,7 +26,7 @@
         <small class="text-muted">Created on : @Model.CreatedAt.ToShortDateString() - @Model.Pictures.Count @(Model.Pictures.Count <= 1 ? "picture" : "pictures") added</small>
     </div>
 
-    @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
+    @if (Model.UserId == UserManager.GetUserId(User))
     {
         <div class="dropdown">
             <button class="btn btn-light dropdown-toggle" type="button" id="albumMenu" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
@@ -46,7 +46,7 @@
 </div>
 
 <div class="row g-1">
-    @if (SignInManager.IsSignedIn(User) && Model.UserId == UserManager.GetUserId(User))
+    @if (Model.UserId == UserManager.GetUserId(User))
     {
         <div class="col-12 mb-3">
             <form asp-action="Create" asp-controller="Pictures" asp-route-albumId="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-dashed border-1 rounded-3 p-5">
