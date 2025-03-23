@@ -72,11 +72,26 @@
     {
         @foreach (var picture in Model.Pictures)
         {
-            <div class="col-4 col-lg-3 col-xl-2">
+            <div class="col-4 col-lg-3 col-xl-2 position-relative">
                 <div class="ratio ratio-1x1 rounded-0">
-                    <img src="~/uploads/@Model.Id/@picture.Path" alt="@picture.Name" class="img-fluid object-fit-cover w-100 h-100" data-bs-toggle="modal" data-bs-target="#picture-modal-@picture.Id" role="button"/>
+                    <img src="~/uploads/@Model.Id/@picture.Path" alt="@picture.Name" class="img-fluid object-fit-cover w-100 h-100" data-bs-toggle="modal" data-bs-target="#picture-modal-@picture.Id" role="button" />
+                </div>
+
+                <div class="position-absolute top-0 end-0 m-1">
+                    <div class="dropdown">
+                        <button class="btn text-white bg-transparent btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span>...</span>
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button type="submit" class="dropdown-item text-danger" onclick="deletePicture('@picture.Id')">Delete</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
             
             <div class="modal fade" id="picture-modal-@picture.Id" tabindex="-1" aria-labelledby="picture-modal-label-@picture.Id" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 90vw; max-height: 90vh;">
@@ -150,5 +165,19 @@
                 }
             })
         });
+
+        function deletePicture(id) {
+            $.ajax({
+                url: `/pictures/delete/${id}`,
+                type: "POST",
+                success: function(response) {
+                    window.location.reload();
+
+                },
+                error: function(xhr, options, error) {
+                    alert(error);
+                }
+            })
+        }
     </script>
 </div>
