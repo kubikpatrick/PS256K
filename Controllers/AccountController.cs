@@ -27,6 +27,7 @@ public sealed class AccountController : Controller
     public async Task<ActionResult> Index()
     {
         var user = await _context.Users
+            .Include(u => u.Connections.OrderByDescending(c => c.CreatedAt).Take(5))
             .Include(u => u.Albums)
                 .ThenInclude(a => a.Pictures)
             .FirstOrDefaultAsync(u => u.Id == _userManager.GetUserId(User));
