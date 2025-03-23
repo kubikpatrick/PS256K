@@ -13,8 +13,8 @@
 <div class="row">
     @foreach (var album in Model)
     {
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4 animate__animated animate__fadeInUp">
-            @if (album.Pictures.Count == 0)
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 animate__animated animate__fadeInUp">
+            @if (album.IsEmpty)
             {
                 <div class="ratio ratio-1x1 rounded-4 overflow-hidden mb-2">
                     <div class="d-block w-100 h-100" style="background-color: #F0F8FF;"></div>
@@ -22,7 +22,7 @@
             }
             else
             {
-                <div id="carousel-item-@album.Id" class="carousel slide rounded-4 overflow-hidden mb-2" data-bs-ride="carousel">
+                <div id="carousel-@album.Id" class="carousel slide rounded-4 overflow-hidden mb-2" data-bs-ride="carousel">
                     <div class="carousel-inner rounded-4 mb-2 overflow-hidden">
                         @for (int i = 0; i < album.Pictures.Count; i++)
                         {
@@ -36,25 +36,24 @@
                         }
                     </div>
 
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-item-@album.Id" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@album.Id" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
 
-                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-item-@album.Id" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-@album.Id" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
             }
 
-            <div class="d-flex justify-content-between">
-                <h6>
-                    <a asp-action="Show" asp-controller="Albums" asp-route-id="@album.Id" class="text-decoration-none text-dark">@album.Name</a>
-                </h6>
+            <div class="d-flex flex-column justify-content-between h-100">
+                <a asp-action="Show" asp-controller="Albums" asp-route-id="@album.Id" class="text-decoration-none text-dark fs-6">@album.Name</a>
 
-                <small>@album.CreatedAt.ToShortDateString()</small>
+                <small class="text-muted">@album.CreatedAt.ToShortDateString()</small>
             </div>
         </div>
+
     }
 </div>
