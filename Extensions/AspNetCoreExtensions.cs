@@ -8,16 +8,20 @@ public static class AspNetCoreExtensions
 {
     public static void ApplyMigrations(this WebApplication app)
     {
-        var context = app.Services.GetRequiredService<ApplicationDbContext>();
-        var migrations = context.Database.GetPendingMigrations();
-
-        if (!migrations.Any())
+        using (var scope = app.Services.CreateScope())
         {
-            return;
-        }
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var migrations = context.Database.GetPendingMigrations();
 
-        context.Database.Migrate();
+            if (!migrations.Any())
+            {
+                return;
+            }
+
+            context.Database.Migrate();
+        }
     }
+
 
     public static void CreateDatabase(this WebApplication app)
     {
