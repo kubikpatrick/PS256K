@@ -1,5 +1,6 @@
 using System.Diagnostics;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,7 @@ using PS256K.Models;
 
 namespace PS256K.Controllers;
 
+[Authorize]
 public sealed class HomeController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -32,12 +34,6 @@ public sealed class HomeController : Controller
 
     [HttpGet("privacy")]
     public ActionResult Privacy()
-    {
-        return View();
-    }
-
-    [HttpGet("not-found")]
-    public ActionResult NotFound()
     {
         return View();
     }
