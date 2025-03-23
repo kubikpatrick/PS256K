@@ -18,4 +18,11 @@
     <PackageReference Include="NuGet.Packaging" Version="6.13.2" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Content Include="wwwroot\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+
 </Project>
