@@ -25,6 +25,12 @@ public sealed class Program
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath = "/Auth/Login";
+            options.LogoutPath = "/Auth/Logout";
+        });
+
         var app = builder.Build();
 
         if (!app.Environment.IsDevelopment())
@@ -34,13 +40,6 @@ public sealed class Program
         }
         
         app.UseHttpsRedirection();
-        app.UseStatusCodePages(async context => 
-        {
-            if (context.HttpContext.Response.StatusCode == StatusCodes.Status404NotFound)
-            {
-                context.HttpContext.Response.Redirect("/not-found", true);
-            }
-        });
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
