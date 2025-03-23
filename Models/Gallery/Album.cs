@@ -40,6 +40,6 @@ public sealed class Album
     [NotMapped]
     public List<Favorite> Favorites { get; internal set; }
 
-    [Required]
-    public string Cover => Pictures.First().Path ?? "empty-cover.png";
+    [NotMapped]
+    public bool IsEmpty => Pictures.Count == 0;
 }
