@@ -22,7 +22,6 @@ public static class AspNetCoreExtensions
         }
     }
 
-
     public static void CreateDatabase(this WebApplication app)
     {
         if (!File.Exists("./PS256K.db"))
