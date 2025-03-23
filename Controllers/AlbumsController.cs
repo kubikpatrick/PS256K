@@ -29,6 +29,11 @@ public sealed class AlbumsController : Controller
             .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
             .ToListAsync();
 
+        if (albums.Count == 0)
+        {
+            return RedirectToAction(nameof(Create));
+        }
+
         return View(albums);
     }
 
