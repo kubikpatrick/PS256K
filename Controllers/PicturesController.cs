@@ -50,10 +50,7 @@ public sealed class PicturesController : Controller
 
         await _context.SaveChangesAsync();
 
-        return RedirectToAction("Show", "Albums", new
-        {
-            id = albumId
-        });
+        return NoContent();
     }
 
     [HttpDelete("delete/{id:guid}")]
@@ -75,9 +72,6 @@ public sealed class PicturesController : Controller
 
         await _context.SaveChangesAsync();
 
-        return RedirectToAction("Show", "Albums", new
-        {
-            picture.AlbumId
-        });
+        return NotFound();
     }
 }
