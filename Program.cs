@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using PS256K.Data;
+using PS256K.Extensions;
 using PS256K.Models.Identity;
 
 namespace PS256K;
@@ -38,7 +39,10 @@ public sealed class Program
             app.UseExceptionHandler("/Home/Error");
             app.UseHsts();
         }
-        
+
+        app.CreateDatabase();
+        app.ApplyMigrations();
+
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseAuthentication();
