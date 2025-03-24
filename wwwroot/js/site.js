@@ -8,7 +8,7 @@ function deleteAlbum(id) {
         error: function(xhr, options, error) {
             alert(error);
         }
-    })
+    });
 }
 
 function deletePicture(id) {
@@ -22,5 +22,5 @@ function deletePicture(id) {
         error: function(xhr, options, error) {
             alert(error);
         }
-    })
+    });
 }
