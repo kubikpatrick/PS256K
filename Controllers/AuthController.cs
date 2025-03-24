@@ -92,7 +92,7 @@ public sealed class AuthController : Controller
         bool exists = await _userManager.FindByEmailAsync(model.Email) != null;
         if (exists)
         {
-            ModelState.AddModelError(string.Empty, "An account with this email already exists.");
+            ModelState.AddModelError(string.Empty, "This email is already taken.");
 
             return View(model);
         }
