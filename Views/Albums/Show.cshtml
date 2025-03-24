@@ -80,7 +80,6 @@
                 <div class="position-absolute top-0 end-0 m-1">
                     <div class="dropdown">
                         <button class="btn text-white bg-transparent btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span>...</span>
                         </button>
 
                         <ul class="dropdown-menu">
@@ -157,9 +156,6 @@
             $.ajax({
                 url: "/albums/delete/@Model.Id",
                 type: "DELETE",
-                success: function(response) {
-                    window.location = "/albums";
-                },
                 error: function(xhr, options, error) {
                     alert(error);
                 }
@@ -169,7 +165,7 @@
         function deletePicture(id) {
             $.ajax({
                 url: `/pictures/delete/${id}`,
-                type: "POST",
+                type: "DELETE",
                 success: function(response) {
                     window.location.reload();
 
