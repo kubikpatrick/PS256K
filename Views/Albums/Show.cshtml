@@ -34,7 +34,7 @@
                 <li><a asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id" class="dropdown-item">Edit</a></li>
                 <li><a asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id" class="dropdown-item">Share</a></li>
                 <li>
-                    <button class="dropdown-item btn btn-outline-danger" type="submit" id="delete-album">Delete</button>
+                    <button class="dropdown-item btn btn-outline-danger" type="submit" onclick="deleteAlbum('@Model.Id')">Delete</button>
                 </li>
             </ul>
         </div>
@@ -150,32 +150,5 @@
                 behavior: "smooth" 
             });
         });
-
-        document.querySelector("#delete-album").addEventListener("click", function () {
-            $.ajax({
-                url: "/albums/delete/@Model.Id",
-                type: "DELETE",
-                success: function(response) {
-                    window.location = "/albums";
-                },
-                error: function(xhr, options, error) {
-                    alert(error);
-                }
-            })
-        });
-
-        function deletePicture(id) {
-            $.ajax({
-                url: `/pictures/delete/${id}`,
-                type: "DELETE",
-                success: function(response) {
-                    window.location.reload();
-
-                },
-                error: function(xhr, options, error) {
-                    alert(error);
-                }
-            })
-        }
     </script>
 </div>
