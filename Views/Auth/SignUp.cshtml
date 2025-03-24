@@ -13,31 +13,41 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="col-12">
-                    <label asp-for="Email" class="form-label"></label>
+                    <label asp-for="Email" class="form-label">
+                        Email <span class="text-bittersweet">*</span>
+                    </label>
                     <input asp-for="Email" class="form-control rounded-pill" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="col-6">
-                    <label asp-for="FirstName" class="form-label"></label>
+                    <label asp-for="FirstName" class="form-label">
+                        First name <span class="text-bittersweet">*</span>
+                    </label>
                     <input asp-for="FirstName" class="form-control rounded-pill" />
                     <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
 
                 <div class="col-6">
-                    <label asp-for="LastName" class="form-label"></label>
+                    <label asp-for="LastName" class="form-label">
+                        Last name <span class="text-bittersweet">*</span>
+                    </label>
                     <input asp-for="LastName" class="form-control rounded-pill" />
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
                 
                 <div class="col-12">
-                    <label asp-for="Password" class="form-label"></label>
+                    <label asp-for="Password" class="form-label">
+                        Password <span class="text-bittersweet">*</span>
+                    </label>
                     <input asp-for="Password" class="form-control rounded-pill" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
                 <div class="col-12">
-                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <label asp-for="Password" class="form-label">
+                        Confirm password <span class="text-bittersweet">*</span>
+                    </label>
                     <input asp-for="ConfirmPassword" class="form-control rounded-pill" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
