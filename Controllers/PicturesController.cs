@@ -69,8 +69,10 @@ public sealed class PicturesController : Controller
         {
             return NotFound();
         }
+        
+        var path = Path.Combine("wwwroot", "uploads", picture.AlbumId, picture.Path);
 
-        FileHelper.Delete(picture.Path);
+        FileHelper.Delete(path);
         _context.Pictures.Remove(picture);
 
         await _context.SaveChangesAsync();
