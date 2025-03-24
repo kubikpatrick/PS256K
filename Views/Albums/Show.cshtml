@@ -91,7 +91,6 @@
                 </div>
             </div>
 
-            
             <div class="modal fade" id="picture-modal-@picture.Id" tabindex="-1" aria-labelledby="picture-modal-label-@picture.Id" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" style="max-width: 90vw; max-height: 90vh;">
                     <div class="modal-content bg-white">
@@ -156,6 +155,9 @@
             $.ajax({
                 url: "/albums/delete/@Model.Id",
                 type: "DELETE",
+                success: function(response) {
+                    window.location = "/albums";
+                },
                 error: function(xhr, options, error) {
                     alert(error);
                 }
