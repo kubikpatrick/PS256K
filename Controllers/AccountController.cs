@@ -63,4 +63,18 @@ public sealed class AccountController : Controller
 
         return count > 0 ? Ok() : BadRequest();
     }
+
+    [HttpPost("delete")]
+    public async Task<ActionResult> Delete()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (_signInManager.IsSignedIn(User))
+        {
+            await _signInManager.SignOutAsync();
+        }
+
+        await _userManager.DeleteAsync(user);
+
+        return RedirectToAction(nameof(Index), "Account");
+    }
 }
