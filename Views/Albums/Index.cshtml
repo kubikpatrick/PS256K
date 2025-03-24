@@ -48,7 +48,7 @@
                 </div>
             }
 
-            <div class="d-flex flex-column justify-content-between h-100">
+            <div class="d-flex justify-content-between">
                 <a asp-action="Show" asp-controller="Albums" asp-route-id="@album.Id" class="text-decoration-none text-dark fs-6">@album.Name</a>
 
                 <small class="text-muted">@album.CreatedAt.ToShortDateString()</small>
