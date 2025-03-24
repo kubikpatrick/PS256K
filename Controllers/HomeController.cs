@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Claims;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,7 @@ public sealed class HomeController : Controller
     {
         var albums = await _context.Albums
             .Include(a => a.Pictures.Take(5))
-            .OrderByDescending(a => a.CreatedAt)
-            .Where(a => a.IsPublic)
-            .Take(20)
+            .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
             .ToListAsync();
 
         return View(albums);
