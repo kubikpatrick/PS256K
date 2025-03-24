@@ -1,16 +1,37 @@
-﻿@using PS256K.Models.Gallery
+﻿@using Microsoft.AspNetCore.Identity
+
+@using PS256K.Models.Gallery
+@using PS256K.Models.Identity
 
 @model List<Album>
+
+@inject UserManager<User> UserManager
 
 @{
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Good morning</h1>
-    
-    @foreach (var album in Model)
-    {
-        
-    }
+<div class="text-center mb-5">
+    <h1 class="display-4">Good morning @((await UserManager.GetUserAsync(User)).FirstName), it is <span id="clock">@DateTime.Now.ToLongTimeString()</span></h1>
 </div>
+
+<h2>Recently visited</h2>
+@foreach (var album in Model)
+{
+        
+}
+
+<script>
+    var clock = document.querySelector("#clock");
+
+    function time() {
+        var d = new Date();
+        var s = d.getSeconds();
+        var m = d.getMinutes();
+        var h = d.getHours();
+
+        clock.textContent = ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+    }
+
+    setInterval(time, 1000);
+</script>
