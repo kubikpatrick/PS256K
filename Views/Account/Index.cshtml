@@ -6,6 +6,13 @@
     ViewData["Title"] = "Account";
 }
 
+<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li class="breadcrumb-item active"><a asp-action="Index" asp-controller="Account">Account</a></li>
+    </ol>
+</nav>
+
 <div class="d-flex justify-content-center">
     <img src="~/avatars/@Model.Avatar" alt="@Model.FullName's avatar" class="rounded-circle object-fit-cover" style="width: 100px; height: 100px; cursor: pointer;" />
 </div>

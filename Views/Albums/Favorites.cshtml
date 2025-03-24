@@ -6,6 +6,14 @@
     ViewData["Title"] = "Favorites";
 }
 
+<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Albums">Albums</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Favorites</li>
+    </ol>
+</nav>
+
 @if (Model.Count == 0)
 {
     <h3 class="text-center">No favorites.</h3>
