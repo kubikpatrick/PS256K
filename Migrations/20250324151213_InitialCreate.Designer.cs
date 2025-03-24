@@ -11,8 +11,8 @@ using PS256K.Data;
 namespace PS256K.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250320130445_ChangeMediaEntityNameToPicture")]
-    partial class ChangeMediaEntityNameToPicture
+    [Migration("20250324151213_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -175,6 +175,32 @@ namespace PS256K.Migrations
                     b.ToTable("Albums");
                 });
 
+            modelBuilder.Entity("PS256K.Models.Gallery.Favorite", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AlbumId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Favorites");
+                });
+
             modelBuilder.Entity("PS256K.Models.Gallery.Picture", b =>
                 {
                     b.Property<string>("Id")
@@ -183,6 +209,12 @@ namespace PS256K.Migrations
 
                     b.Property<string>("AlbumId")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Latitude")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Longitude")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -198,6 +230,29 @@ namespace PS256K.Migrations
                     b.HasIndex("AlbumId");
 
                     b.ToTable("Pictures");
+                });
+
+            modelBuilder.Entity("PS256K.Models.Identity.Connection", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Connections");
                 });
 
             modelBuilder.Entity("PS256K.Models.Identity.User", b =>
@@ -341,6 +396,25 @@ namespace PS256K.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("PS256K.Models.Gallery.Favorite", b =>
+                {
+                    b.HasOne("PS256K.Models.Gallery.Album", "Album")
+                        .WithMany("Favorites")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PS256K.Models.Identity.User", "User")
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PS256K.Models.Gallery.Picture", b =>
                 {
                     b.HasOne("PS256K.Models.Gallery.Album", "Album")
@@ -352,14 +426,31 @@ namespace PS256K.Migrations
                     b.Navigation("Album");
                 });
 
+            modelBuilder.Entity("PS256K.Models.Identity.Connection", b =>
+                {
+                    b.HasOne("PS256K.Models.Identity.User", "User")
+                        .WithMany("Connections")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PS256K.Models.Gallery.Album", b =>
                 {
+                    b.Navigation("Favorites");
+
                     b.Navigation("Pictures");
                 });
 
             modelBuilder.Entity("PS256K.Models.Identity.User", b =>
                 {
                     b.Navigation("Albums");
+
+                    b.Navigation("Connections");
+
+                    b.Navigation("Favorites");
                 });
 #pragma warning restore 612, 618
         }
