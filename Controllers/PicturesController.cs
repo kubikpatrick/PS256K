@@ -56,7 +56,7 @@ public sealed class PicturesController : Controller
         });
     }
 
-    [HttpPost("delete/{id:guid}")]
+    [HttpDelete("delete/{id:guid}")]
     public async Task<ActionResult> Delete([FromRoute] string id)
     {
         var picture = await _context.Pictures
@@ -75,6 +75,6 @@ public sealed class PicturesController : Controller
 
         await _context.SaveChangesAsync();
 
-        return NotFound();
+        return Ok();
     }
 }

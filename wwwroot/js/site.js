@@ -16,8 +16,7 @@ function deletePicture(id) {
         url: `/pictures/delete/${id}`,
         type: "DELETE",
         success: function(response) {
-            window.location.reload();
-
+            document.querySelector(`#picture-${id}-column`).remove();
         },
         error: function(xhr, options, error) {
             alert(error);
