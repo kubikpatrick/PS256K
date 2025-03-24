@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Security.Claims;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,6 @@ using PS256K.Models.Identity;
 
 namespace PS256K.Controllers;
 
-[Authorize]
 public sealed class HomeController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -24,7 +22,6 @@ public sealed class HomeController : Controller
         _signInManager = signInManager;
     }
 
-    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult> Index()
     {
