@@ -9,7 +9,7 @@ First, you will want to download the [.NET 9 SDK](https://dotnet.microsoft.com/e
 Once installed, open a CLI and clone the project with `git` :
 
 ```bash
-git clone https://github.com/kubikpatrick/PS256K
+git clone https://github.com/kubikpatrick/PS256K.git
 ```
 
 Once downloaded, to apply migrations, you will need EntityFrameworkCore tool :
@@ -24,10 +24,8 @@ Next, restore the dependencies and apply the database migrations :
 dotnet ef database update
 ```
 
-To finish, build the project and publish it in its release version : 
+To finish, run the project in its release version : 
 
 ```bash
-dotnet publish -c Release
+dotnet run -c Release
 ```
-
-Once all previous steps done, move to `./PS256K/bin/Release/net9.0/` and execute `PS256K.exe`.
