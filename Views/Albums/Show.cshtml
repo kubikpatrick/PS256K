@@ -138,8 +138,11 @@
     }
 </div>
 
-<div>
-    <button class="btn btn-bittersweet position-fixed bottom-0 start-50 translate-middle-x mb-3 rounded-pill px-3 py-2" onclick="scrollToTop();">
-        <img src="~/app/arrow-upward.svg" alt="Arrow upward" />
-    </button>
-</div>
+@if (Model.IsEmpty)
+{
+    <div>
+        <button class="btn btn-bittersweet position-fixed bottom-0 start-50 translate-middle-x mb-3 rounded-pill px-3 py-2" onclick="scrollToTop();">
+            <img src="~/app/arrow-upward.svg" alt="Arrow upward" />
+        </button>
+    </div>
+}
