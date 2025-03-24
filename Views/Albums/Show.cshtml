@@ -92,7 +92,7 @@
             </div>
 
             <div class="modal fade" id="picture-modal-@picture.Id" tabindex="-1" aria-labelledby="picture-modal-label-@picture.Id" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" style="max-width: 90vw; max-height: 90vh;">
+                <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content bg-white">
                         <div class="modal-header border-0 p-2">
                             <h5 class="modal-title" id="picture-modal-label-@picture.Id">@picture.Name</h5>
@@ -102,13 +102,13 @@
                         <div class="modal-body d-flex justify-content-center align-items-center p-3 w-100 h-100 overflow-hidden">
                             @if (!picture.HasGeolocation)
                             {
-                                <img src="~/uploads/@Model.Id/@picture.Path" alt="@picture.Name" class="img-fluid object-fit-contain d-block" style="max-width: 85vw; max-height: 85vh;">
+                                <img src="~/uploads/@Model.Id/@picture.Path" alt="@picture.Name" loading="lazy" class="img-fluid object-fit-contain d-block" style="max-width: 85vw; max-height: 85vh;">
                             }
                             else
                             {
                                 <div class="row g-2 w-100">
                                     <div class="col-12 col-sm-9">
-                                        <img src="~/uploads/@Model.Id/@picture.Path" alt="@picture.Name" class="img-fluid object-fit-contain d-block" style="max-width: 100%; max-height: 85vh;">
+                                        <img src="~/uploads/@Model.Id/@picture.Path" alt="@picture.Name" loading="lazy" class="img-fluid object-fit-contain d-block" style="max-width: 100%; max-height: 85vh;">
                                     </div>
 
                                     <div class="col-12 col-sm-3">
