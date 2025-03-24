@@ -43,3 +43,15 @@ body {
 a {
     text-decoration: none;
 }
+
+.btn-bittersweet {
+  color: #fff;
+  background-color: #F05D5E;
+  border-color: #F05D5E;
+}
+
+.btn-bittersweet:hover {
+  color: white;
+  background-color: #d94f50;
+  border-color: #c44748;
+}
