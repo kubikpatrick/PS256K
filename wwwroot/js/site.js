@@ -1,6 +1,6 @@
 function deleteAlbum(id) {
     $.ajax({
-        url: "/albums/delete/@Model.Id",
+        url: `/albums/delete/${id}`,
         type: "DELETE",
         success: function(response) {
             window.location = "/albums";
