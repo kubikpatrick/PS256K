@@ -30,9 +30,9 @@ public sealed class HomeController : Controller
             return View("Presentation");
         }
 
-        var albums = await _context.Albums
-            .Include(a => a.Pictures.Take(5))
-            .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+        var albums = await _context.Projects
+            .Include(p => p.Pictures.Take(5))
+            .Where(p => p.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
             .ToListAsync();
 
         return View(albums);

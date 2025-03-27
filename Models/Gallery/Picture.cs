@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using Microsoft.EntityFrameworkCore;
 
+using PS256K.Models.Commerce;
+
 namespace PS256K.Models.Gallery;
 
 [PrimaryKey(nameof(Id))]
@@ -13,11 +15,10 @@ public sealed class Picture
         
     }
 
-    public Picture(string name, string path, string albumId)
+    public Picture(string name, string path)
     {
         Name = name;
         Path = path;
-        AlbumId = albumId;
     }
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -35,10 +36,10 @@ public sealed class Picture
     public string? Latitude { get; internal set; }
 
     [Required]
-    public string AlbumId { get; internal set; }
-
+    public string ProjectId { get; internal set; }
+    
     [NotMapped]
-    public Album Album { get; internal set; }
+    public Project Project { get; internal set; }
 
     [NotMapped]
     public bool HasGeolocation => !string.IsNullOrEmpty(Longitude) && !string.IsNullOrEmpty(Latitude);

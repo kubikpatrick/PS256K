@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+using PS256K.Models.Commerce;
 using PS256K.Models.Gallery;
 using PS256K.Models.Identity;
 
@@ -12,44 +13,44 @@ public sealed class ApplicationDbContext : IdentityDbContext<User>
     {
 
     }
-
+    
     public DbSet<User> Users { get; set; }
-    public DbSet<Album> Albums { get; set; }
-    public DbSet<Favorite> Favorites { get; set; }
     public DbSet<Picture> Pictures { get; set; }
     public DbSet<Connection> Connections { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Project> Projects { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<User>()
-            .HasMany(user => user.Albums)
-            .WithOne(album => album.User)
-            .HasForeignKey(album => album.UserId);
+            .HasMany(user => user.Projects)
+            .WithOne(p => p.User)
+            .HasForeignKey(p => p.UserId);
 
-        builder.Entity<Album>()
-            .HasMany(album => album.Pictures)
-            .WithOne(picture => picture.Album)
-            .HasForeignKey(picture => picture.AlbumId);
-        
+        builder.Entity<User>()
+            .HasMany(user => user.Customers)
+            .WithOne(customer => customer.User)
+            .HasForeignKey(customer => customer.UserId);
+
+        builder.Entity<Project>()
+            .HasOne(p => p.Customer)
+            .WithMany(c => c.Projects)
+            .HasForeignKey(p => p.CustomerId);
+
         builder.Entity<Picture>()
-            .HasOne(picture => picture.Album)
-            .WithMany(album => album.Pictures)
-            .HasForeignKey(picture => picture.AlbumId);
-
-        builder.Entity<Favorite>()
-            .HasOne(f => f.Album)
-            .WithMany(a => a.Favorites)
-            .HasForeignKey(f => f.AlbumId);
-
-        builder.Entity<Favorite>()
-            .HasOne(f => f.User)
-            .WithMany(u => u.Favorites)
-            .HasForeignKey(f => f.UserId);
+            .HasOne(picture => picture.Project)
+            .WithMany(project => project.Pictures)
+            .HasForeignKey(picture => picture.ProjectId);
 
         builder.Entity<Connection>()
             .HasOne(c => c.User)
             .WithMany(u => u.Connections)
             .HasForeignKey(c => c.UserId);
+
+        builder.Entity<Customer>()
+            .HasMany(c => c.Projects)
+            .WithOne(p => p.Customer)
+            .HasForeignKey(p => p.CustomerId);
 
         base.OnModelCreating(builder);
     }

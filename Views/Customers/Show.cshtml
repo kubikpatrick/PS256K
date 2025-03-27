@@ -1,0 +1,83 @@
+@using PS256K.Models.Commerce
+
+@model Customer
+
+@{
+    ViewData["Title"] = @Model.FullName;
+}
+
+<div class="row">
+    <div class="col-lg-4 mb-4 text-center">
+        <img src="~/avatars/@Model.Avatar" class="img-fluid rounded-circle mb-4 object-fit-cover" alt="@Model.FullName's avatar" style="width: 100px; height: 100px;">
+            
+        <h2 class="fw-bold mb-2">@Model.FullName</h2>
+        <p class="text-muted mb-3">@Model.Email</p>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card border-0">
+            <div class="card-header border-0 bg-white d-flex justify-content-between align-items-center d-none d-sm-block">
+                <h3 class="my-2 fw-semibold">Details on @Model.FirstName</h3>
+            </div>
+                
+            <div class="card-body">
+                <div class="row mb-3 gy-3">
+                    <div class="col-md-6">
+                        <div class="mb-sm-1">
+                            <p>Full name : @Model.FullName</p>
+                            <p>Created on : @Model.CreatedAt.ToShortDateString()</p>
+                            <p>Occupation : @Model.Occupation</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-sm-1">
+                            <p>Email : @Model.Email</p>
+                            <p>Phone : @Model.Phone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <hr />
+
+        <div class="card border-0 mt-4">
+            <div class="card-header border-0 bg-white d-flex justify-content-between align-items-center">
+                <h3 class="my-2">Projects</h3>
+                <a asp-action="Create" asp-controller="Projects" asp-route-customerId="@Model.Id" class="btn btn-bittersweet">Create project</a>
+            </div>
+            
+            <div class="card-body">
+                @if (!Model.Projects.Any())
+                {
+                    <div class="text-center text-muted py-4">
+                        <p>No projects yet</p>
+                        <a asp-action="Create" asp-controller="Projects" asp-route-customerId="@Model.Id" class="btn btn-outline-primary">Create first project</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="row row-cols-1 row-cols-md-2 g-3">
+                        @foreach (var project in Model.Projects.Take(4))
+                        {
+                            <div class="col">
+                                <div class="card h-100 border">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <a asp-action="Show" asp-controller="Projects" asp-route-id="@project.Id" class="card-title">@project.Name</a>
+                                        </div>
+
+                                        <p class="card-text text-muted">
+                                            ojqsdiojqsidojqosdijqoisdjoqsidjoqisjdoijsoidj
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

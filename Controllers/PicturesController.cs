@@ -21,8 +21,8 @@ public sealed class PicturesController : Controller
         _context = context;
     }
 
-    [HttpPost("create/{albumId}")]
-    public async Task<ActionResult> Create([FromRoute] string albumId, List<IFormFile> files)
+    [HttpPost("create/{projectId:guid}")]
+    public async Task<ActionResult> Create([FromRoute] string projectId, List<IFormFile> files)
     {   
         if (files is null || files.Count == 0)
         {
@@ -32,7 +32,7 @@ public sealed class PicturesController : Controller
         foreach (var file in files)
         {
             var hash = file.GetHashCode().ToString();
-            var directory = Directory.CreateDirectory(Path.Combine("wwwroot", "uploads", albumId));
+            var directory = Directory.CreateDirectory(Path.Combine("wwwroot", "uploads", projectId));
             var path = Path.Combine(directory.FullName, hash + Path.GetExtension(file.FileName));
 
             using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
@@ -44,15 +44,15 @@ public sealed class PicturesController : Controller
             {
                 Name = Path.GetFileName(file.FileName),
                 Path = hash + Path.GetExtension(file.FileName),
-                AlbumId = albumId,
+                ProjectId = projectId,
             });
         }
 
         await _context.SaveChangesAsync();
 
-        return RedirectToAction("Show", "Albums", new
+        return RedirectToAction("Show", "Projects", new
         {
-            id = albumId,
+            id = projectId,
         });
     }
 
@@ -62,7 +62,7 @@ public sealed class PicturesController : Controller
         var picture = await _context.Pictures
             .FirstOrDefaultAsync(
                 m => m.Id == id && 
-                m.Album.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)
+                m.Project.Customer.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)
             );
 
         if (picture is null)
@@ -70,7 +70,7 @@ public sealed class PicturesController : Controller
             return NotFound();
         }
         
-        string path = Path.Combine("wwwroot", "uploads", picture.AlbumId, picture.Path);
+        string path = Path.Combine("wwwroot", "uploads", picture.ProjectId, picture.Path);
 
         FileHelper.Delete(path);
         _context.Pictures.Remove(picture);

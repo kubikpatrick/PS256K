@@ -28,12 +28,27 @@ public sealed class Customer
     [EmailAddress]
     [Required]
     public string Email { get; internal set; }
+
+    [Phone]
+    public string Phone { get; internal set; }
+
+    [Required]
+    public string Occupation { get; internal set; }
     
     public string Avatar { get; internal set; } = "DEFAULT.png";
+
+    [Required]
+    public DateTime CreatedAt { get; internal set; }
 
     [Required]
     public string UserId { get; internal set; }
 
     [NotMapped]
     public User User { get; internal set; }
+
+    [NotMapped]
+    public List<Project> Projects { get; internal set; }
+
+    [NotMapped]
+    public string FullName => $"{FirstName} {LastName}";
 }

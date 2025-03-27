@@ -1,23 +1,24 @@
 @using PS256K.Models.REST
 
-@model AlbumModel
+@model ProjectModel
 
 @{
-    ViewData["Title"] = "Create album";
+    ViewData["Title"] = "Create project";
 }
 
 <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
-        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Albums">Albums</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Projects">Projects</a></li>
         <li class="breadcrumb-item active" aria-current="page">Create</li>
     </ol>
 </nav>
 
-<form asp-action="Create" asp-controller="Albums" enctype="multipart/form-data">
+<form asp-action="Create" asp-controller="Projects" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="row gy-5">
         <div class="col-12">
-            <input asp-for="Name" class="form-control rounded-0 border-0 border-bottom" style="font-size: 1.5rem; height: 75px;" placeholder="Album name..." />
+            <input type="text" name="Name" class="form-control rounded-0 border-0 border-bottom" style="font-size: 1.5rem; height: 75px;" placeholder="Project name..." />
         </div>
 
         <div class="col-12 d-flex justify-content-center">

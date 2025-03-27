@@ -1,9 +1,9 @@
 @using Microsoft.AspNetCore.Identity
 
-@using PS256K.Models.Gallery
+@using PS256K.Models.Commerce
 @using PS256K.Models.Identity
 
-@model Album
+@model Project
 
 @inject SignInManager<User> SignInManager;
 @inject UserManager<User> UserManager;
@@ -15,41 +15,34 @@
 <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
-        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Albums">Albums</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Projects">Projects</a></li>
         <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
     </ol>
 </nav>
 
 <div class="d-flex justify-content-between">
     <div class="mb-4">
-        <h3>@Model.Name</h3>
+        <h3>@Model.Name (for <a asp-action="Show" asp-controller="Customers" asp-route-id="@Model.Customer.Id">@Model.Customer.FullName</a>)</h3>
         <small class="text-muted">Created on : @Model.CreatedAt.ToShortDateString() - @Model.Pictures.Count @(Model.Pictures.Count <= 1 ? "picture" : "pictures") added</small>
     </div>
 
-    @if (Model.UserId == UserManager.GetUserId(User))
-    {
-        <div class="dropdown">
-            <button class="btn btn-light dropdown-toggle" type="button" id="albumMenu" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
-            <ul class="dropdown-menu" aria-labelledby="albumMenu">
-                <li><a asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id" class="dropdown-item">Edit</a></li>
-                <li><a asp-action="Edit" asp-controller="Albums" asp-route-id="@Model.Id" class="dropdown-item">Share</a></li>
-                <li>
-                    <button class="dropdown-item btn btn-outline-danger" type="submit" onclick="deleteAlbum('@Model.Id')">Delete</button>
-                </li>
-            </ul>
-        </div>
-    }
-    else
-    {
-        <small class="text-muted">Created by @Model.User.FullName</small>
-    }
+    <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
+        <ul class="dropdown-menu border-0 shadow-sm">
+            <li><a asp-action="Edit" asp-controller="Projects" asp-route-id="@Model.Id" class="dropdown-item">Edit</a></li>
+            <li><a asp-action="Edit" asp-controller="Projects" asp-route-id="@Model.Id" class="dropdown-item">Share</a></li>
+            <li>
+                <button class="dropdown-item btn btn-outline-danger" type="submit" onclick="deleteProject('@Model.Id')">Delete</button>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div class="row g-1">
     @if (Model.UserId == UserManager.GetUserId(User))
     {
         <div class="col-12 mb-3">
-            <form asp-action="Create" asp-controller="Pictures" asp-route-albumId="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-dashed border-1 rounded-3 p-5">
+            <form asp-action="Create" asp-controller="Pictures" asp-route-projectId="@Model.Id" method="post" enctype="multipart/form-data" class="d-flex justify-content-center align-items-center border border-primary border-dashed border-1 rounded-3 p-5">
                 <input type="file" id="file-upload" name="files" class="d-none" accept="image/jpeg, image/png, image/gif, image/svg, image/webp" required multiple/>
                 <label for="file-upload" class="fs-3 text-primary">+</label>
 
@@ -66,7 +59,7 @@
     
     @if (!Model.Pictures.Any())
     {
-        <div class="text-center">This album is empty.</div>
+        <div class="text-center">This project is empty.</div>
     }
     else
     {

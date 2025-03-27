@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PS256K.Data;
 
@@ -10,9 +11,11 @@ using PS256K.Data;
 namespace PS256K.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250324190136_CreateMigrations")]
+    partial class CreateMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -170,14 +173,6 @@ namespace PS256K.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Occupation")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -202,11 +197,34 @@ namespace PS256K.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ShareLink")
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("PS256K.Models.Gallery.Album", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsPublic")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -216,17 +234,19 @@ namespace PS256K.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("PS256K.Models.Gallery.Picture", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AlbumId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Latitude")
@@ -426,13 +446,16 @@ namespace PS256K.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("PS256K.Models.Gallery.Album", b =>
+                {
                     b.HasOne("PS256K.Models.Identity.User", "User")
-                        .WithMany("Projects")
+                        .WithMany("Albums")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
 
                     b.Navigation("User");
                 });
@@ -471,11 +494,11 @@ namespace PS256K.Migrations
 
             modelBuilder.Entity("PS256K.Models.Identity.User", b =>
                 {
+                    b.Navigation("Albums");
+
                     b.Navigation("Connections");
 
                     b.Navigation("Customers");
-
-                    b.Navigation("Projects");
                 });
 #pragma warning restore 612, 618
         }

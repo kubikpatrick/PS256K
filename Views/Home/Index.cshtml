@@ -3,8 +3,6 @@
 @using PS256K.Models.Gallery
 @using PS256K.Models.Identity
 
-@model List<Album>
-
 @inject UserManager<User> UserManager
 
 @{
@@ -16,10 +14,6 @@
 </div>
 
 <h2>Recently visited</h2>
-@foreach (var album in Model)
-{
-        
-}
 
 <script>
     var clock = document.querySelector("#clock");
