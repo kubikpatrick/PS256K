@@ -10,6 +10,8 @@ Once installed, open a CLI and clone the project with `git` :
 
 ```bash
 git clone https://github.com/kubikpatrick/PS256K.git
+
+cd PS256K
 ```
 
 Once downloaded, to apply migrations, you will need EntityFrameworkCore tool :
